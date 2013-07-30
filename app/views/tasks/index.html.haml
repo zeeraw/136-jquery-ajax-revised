@@ -1,0 +1,8 @@
+%h1 Check List
+= link_to "New Task", new_task_path, id: "new_link"
+%h2 Incomplete Tasks
+#incomplete_tasks.tasks
+  = render @incomplete_tasks
+%h2 Comlpete Tasks
+#complete_tasks.tasks
+  = render @complete_tasks
