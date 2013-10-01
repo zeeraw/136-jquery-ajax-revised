@@ -2,4 +2,5 @@
   = f.check_box :complete
   = f.submit "Update"
   = f.label :complete, task.name
+  = f.select :user_id, task_user_select_options
   = link_to "(remove)", task, method: :delete, data: {confirm: "Are you sure?"}

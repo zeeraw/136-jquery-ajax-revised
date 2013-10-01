@@ -1,3 +1,5 @@
 = form_for @task do |f|
   = f.text_field :name
+  = f.label :user_id, "Asign:"
+  = f.select :user_id, task_user_select_options
   = f.submit

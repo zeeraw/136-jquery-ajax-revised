@@ -28,4 +28,8 @@ class User < ActiveRecord::Base
     [twitter_token, twitter_secret]
   end
 
+  def to_param
+    [id,handle].join('-')
+  end
+
 end

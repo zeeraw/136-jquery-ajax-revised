@@ -1,7 +1,12 @@
 class TasksController < ApplicationController
   def index
-    @incomplete_tasks = Task.where(complete: false)
-    @complete_tasks   = Task.where(complete: true)
+    if params[:user_id]
+      @incomplete_tasks = Task.uncomplete.by(params[:user_id])
+      @complete_tasks   = Task.complete.by(params[:user_id])
+    else
+      @incomplete_tasks = Task.uncomplete
+      @complete_tasks   = Task.complete
+    end
   end
 
   def new

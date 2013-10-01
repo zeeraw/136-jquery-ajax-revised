@@ -13,7 +13,15 @@
         = link_to logout_path do
           = image_tag current_user.avatar, style: 'height: 16px; width: 16px;'
           = "Logout @(#{current_user.handle})"
+        = "|"
+        = link_to "My Tasks", user_tasks_path(current_user)
       - else
         = link_to "Login", login_path
 
       = yield
+      %h3= "Users"
+      %nav
+        = link_to "All Users", root_path
+        - User.all.each do |user|
+          = " | "
+          = link_to user.name, user_tasks_path(user)
