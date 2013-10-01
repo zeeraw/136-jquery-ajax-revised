@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
   hide_action :current_user
   hide_action :auth_token
 
+  helper_method :current_user
+
   def current_user
     @current_user ||= User.find_by_auth_token(auth_token) if auth_token
   rescue ActiveRecord::RecordNotFound
@@ -15,21 +17,17 @@ class ApplicationController < ActionController::Base
   end
 
   def auth_token
-    cookies.signed[:auth_token]
+    session[:auth_token]
   end
 
   def authenticate!(user)
     @current_user = user
-    cookies.signed[:auth_token] = {
-      :domain =>  Figaro.env.session_key,
-      :value =>   user.auth_token,
-      :expires => 20.years.from_now
-    }
+    session[:auth_token] = user.auth_token
   end
 
   def repudiate!
     @current_user = nil
-    cookies.delete(:auth_token, domain: Figaro.env.session_key)
+    session[:auth_token] = nil
   end
 
 end

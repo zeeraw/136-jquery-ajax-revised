@@ -16,11 +16,7 @@ describe ApplicationController do
     context 'user could not be found' do
 
       before(:each) do
-        subject.send(:cookies).signed[:auth_token] = {
-          :domain =>  Figaro.env.session_key,
-          :value =>   ["invalid", "token"],
-          :expires => 20.years.from_now
-        }
+        subject.send(:session)[:auth_token] = ["invalid", "token"]
       end
 
       it 'repudiates the session' do
@@ -55,7 +51,7 @@ describe ApplicationController do
     end
 
     it 'sets the auth token cookie' do
-      subject.send(:cookies).signed[:auth_token].should eq user.auth_token
+      subject.send(:session)[:auth_token].should eq user.auth_token
     end
 
   end
