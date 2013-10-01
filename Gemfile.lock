@@ -73,6 +73,11 @@ GEM
       spork (>= 0.8.4)
     haml (4.0.3)
       tilt
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     hashie (2.0.5)
     hike (1.2.3)
     i18n (0.6.4)
@@ -191,7 +196,7 @@ DEPENDENCIES
   guard-bundler
   guard-rspec
   guard-spork
-  haml
+  haml-rails
   jquery-rails
   omniauth
   omniauth-twitter

@@ -6,7 +6,7 @@ gem 'pry' # best shit ever
 gem 'rails', '3.2.14'
 
 gem 'sqlite3'
-gem 'haml'
+gem 'haml-rails'
 
 gem 'omniauth'
 gem 'omniauth-twitter'
