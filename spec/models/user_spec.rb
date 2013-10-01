@@ -11,7 +11,29 @@ describe User do
   it { subject.should respond_to :twitter_secret }
   it { subject.should respond_to :twitter_uid }
 
-  it { User.should respond_to :derive_from_twitter }
+  it { subject.class.should respond_to :find_by_auth_token }
+  describe '.find_by_auth_token' do
+
+    subject { create :user }
+
+    let(:auth_token) { subject.auth_token }
+
+    it 'finds user' do
+      User.find_by_auth_token(auth_token).should eq subject
+    end
+
+    context 'no user exists' do
+      let(:auth_token) { ["invalid", "token"] }
+      it 'expects RecordNotFound error'do
+        expect do
+          User.find_by_auth_token(auth_token)
+        end.to raise_exception(ActiveRecord::RecordNotFound)
+      end
+    end
+
+  end
+
+  it { subject.class.should respond_to :derive_from_twitter }
   describe '.derive_from_twitter' do
 
     let(:subject) { User }

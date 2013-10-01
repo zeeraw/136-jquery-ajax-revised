@@ -4,6 +4,13 @@ class User < ActiveRecord::Base
 
   validates :name, :avatar, :handle, presence: true
 
+  def self.find_by_auth_token(auth_token)
+    token, secret = auth_token[0], auth_token[1]
+    user = User.find_by_twitter_token_and_twitter_secret(token, secret)
+    raise ActiveRecord::RecordNotFound unless user
+    return user
+  end
+
   def self.derive_from_twitter(omniauth)
     user ||= self.where(twitter_uid: omniauth.uid).first
     user ||= self.new do |u|
