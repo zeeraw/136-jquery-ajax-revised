@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate!(user)
+    @current_user = user
     cookies.signed[:auth_token] = {
       :domain =>  Figaro.env.session_key,
       :value =>   user.auth_token,
@@ -27,6 +28,7 @@ class ApplicationController < ActionController::Base
   end
 
   def repudiate!
+    @current_user = nil
     cookies.delete(:auth_token, domain: Figaro.env.session_key)
   end
 

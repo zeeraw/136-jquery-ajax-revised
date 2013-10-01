@@ -9,6 +9,7 @@ FactoryGirl.define do
     twitter_uid    '1234'
 
     factory :omniauth_user do
+      avatar "http://omniauth.com/image.png"
       handle 'omniauth'
       name   'omniauth'
       twitter_token  '80e3aad93519dcd3'
