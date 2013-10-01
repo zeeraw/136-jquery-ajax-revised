@@ -1,12 +1,19 @@
 class TasksController < ApplicationController
+
   def index
-    if params[:user_id]
-      @incomplete_tasks = Task.uncomplete.by(params[:user_id])
-      @complete_tasks   = Task.complete.by(params[:user_id])
+    if params[:user_id] or current_user
+      user_id = params[:user_id] || current_user.id
+      @incomplete_tasks = Task.uncomplete.by(user_id)
+      @complete_tasks   = Task.complete.by(user_id)
     else
-      @incomplete_tasks = Task.uncomplete
-      @complete_tasks   = Task.complete
+      all
     end
+  end
+
+  def all
+    @incomplete_tasks = Task.uncomplete
+    @complete_tasks   = Task.complete
+    render 'index'
   end
 
   def new

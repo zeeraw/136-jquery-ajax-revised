@@ -1,5 +1,7 @@
 Checklist::Application.routes.draw do
-  resources :tasks
+  resources :tasks do
+    match :all, on: :collection, via: :get, to: 'tasks#all'
+  end
 
   resources :users, only: [] do
     resources :tasks, path: '/', only: [:index]
