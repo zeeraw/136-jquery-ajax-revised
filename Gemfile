@@ -8,6 +8,9 @@ gem 'rails', '3.2.14'
 gem 'sqlite3'
 gem 'haml'
 
+
+gem 'figaro'
+
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
