@@ -1,8 +1,7 @@
 class TasksController < ApplicationController
   def index
-    sleep 1
     @incomplete_tasks = Task.where(complete: false)
-    @complete_tasks = Task.where(complete: true)
+    @complete_tasks   = Task.where(complete: true)
   end
 
   def new
@@ -10,13 +9,13 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.create!(params[:task])
+    @task = Task.create(params[:task])
     redirect_to tasks_url
   end
 
   def update
     @task = Task.find(params[:id])
-    @task.update_attributes!(params[:task])
+    @task.update_attributes(params[:task])
     redirect_to tasks_url
   end
 
