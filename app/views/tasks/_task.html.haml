@@ -4,3 +4,8 @@
   = f.label :complete, task.name
   = f.select :user_id, task_user_select_options
   = link_to "(remove)", task, method: :delete, data: {confirm: "Are you sure?"}
+  - if current_user
+    - if current_user.following.include?(task)
+      = link_to "(unfollow)", unfollow_task_path(task),   method: :delete
+    - else
+      = link_to "(follow)",   follow_task_path(task),     method: :post

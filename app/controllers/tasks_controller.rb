@@ -1,10 +1,13 @@
 class TasksController < ApplicationController
 
+  before_filter :get_scope_user
+
   def index
-    if params[:user_id] or current_user
-      user_id = params[:user_id] || current_user.id
-      @incomplete_tasks = Task.uncomplete.by(user_id)
-      @complete_tasks   = Task.complete.by(user_id)
+    if @user or current_user
+      user = @user || current_user
+      @incomplete_tasks = Task.uncomplete.by(user.id)
+      @complete_tasks   = Task.complete.by(user.id)
+      @following_tasks  = user.following
     else
       all
     end
@@ -13,6 +16,7 @@ class TasksController < ApplicationController
   def all
     @incomplete_tasks = Task.uncomplete
     @complete_tasks   = Task.complete
+    @following_tasks  = []
     render 'index'
   end
 
@@ -35,4 +39,11 @@ class TasksController < ApplicationController
     @task = Task.destroy(params[:id])
     redirect_to tasks_url
   end
+
+private
+
+  def get_scope_user
+    @user = User.find(params[:user_id]) if params[:user_id]
+  end
+
 end

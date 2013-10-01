@@ -3,6 +3,22 @@
 %h2 Incomplete Tasks
 #incomplete_tasks.tasks
   = render @incomplete_tasks
+
 %h2 Comlpete Tasks
 #complete_tasks.tasks
   = render @complete_tasks
+
+- unless @following_tasks.empty?
+  %h2
+    = "Tasks followed by"
+    - if @user && current_user != @user
+      = @user.name
+    - elsif current_user
+      = "Me"
+  #followed_tasks.tasks
+    - @following_tasks.each do |task|
+      .task
+        %label= task.name
+        = "(#{task.user.name})" if task.user
+        - if (current_user == @user) or @user.nil?
+          %span.edit_task= link_to "(unfollow)", unfollow_task_path(task),   method: :delete

@@ -4,6 +4,9 @@ class User < ActiveRecord::Base
 
   validates :name, :avatar, :handle, presence: true
 
+  has_many :tasks
+  has_and_belongs_to_many :following,   class_name: 'Task'
+
   def self.find_by_auth_token(auth_token)
     token, secret = auth_token[0], auth_token[1]
     user = User.find_by_twitter_token_and_twitter_secret(token, secret)

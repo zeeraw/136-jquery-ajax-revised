@@ -21,7 +21,7 @@
         = link_to "All Tasks", root_path
 
       = yield
-      %h3= "Tasks for User"
+      %h3= "Tasks for other users"
       %nav
         = link_to "All Users", all_tasks_path
         - User.all.each do |user|
