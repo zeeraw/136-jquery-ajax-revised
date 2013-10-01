@@ -19,6 +19,21 @@ Spork.prefork do
   FactoryGirl.definition_file_paths = %w(spec/factories)
   DatabaseCleaner.strategy = :transaction
 
+  OmniAuth.config.test_mode = true
+  OmniAuth.config.add_mock(:twitter, {
+    provider: 'twitter',
+    uid:      '123545',
+    info: {
+      nickname: 'omniauth',
+      name:     'omniauth',
+      image:    'http://omniauth.com/image.png'
+    },
+    credentials: {
+      token:  '80e3aad93519dcd3',
+      secret: '29293db8cf6bca8eeb16bccba7df7179'
+    }
+  })
+
   RSpec.configure do |config|
     config.treat_symbols_as_metadata_keys_with_true_values = true
     config.filter_run focus: true
@@ -33,6 +48,7 @@ Spork.prefork do
     config.before(:suite) { FactoryGirl.reload }
 
     config.include(FactoryGirl::Syntax::Methods)
+    config.include(ControllerSessionHelpers)
   end
 
 end
