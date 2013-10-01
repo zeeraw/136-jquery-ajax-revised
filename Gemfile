@@ -8,6 +8,8 @@ gem 'rails', '3.2.14'
 gem 'sqlite3'
 gem 'haml'
 
+gem 'omniauth'
+gem 'omniauth-twitter'
 
 gem 'figaro'
 
