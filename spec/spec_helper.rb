@@ -48,6 +48,7 @@ Spork.prefork do
     config.before(:suite) { FactoryGirl.reload }
 
     config.include(FactoryGirl::Syntax::Methods)
+    config.include(ControllerSessionHelpers)
   end
 
 end
